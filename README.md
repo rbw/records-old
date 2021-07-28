@@ -1,21 +1,16 @@
 # Records
 
-Example REST API application created with extensibility and performance in mind.
+The idea of this project is to show how Starlette, Marshmallow and SQLAlchemy can be combined to create 
+a RESTful HTTP API application that is scalable, lightweight and highly concurrent.
 
-Tech used
----
-
-Records uses a set of permissively licensed, standard, and stable libraries.
-
-- Python3
+It makes use of a set of well-established and permissively licensed libraries:
 - Starlette
 - Uvicorn
 - SQLAlchemy (1.4 asyncio)
 - Marshmallow
 
 
-Structure
----
+### Structure
 
 ```
 .
@@ -49,19 +44,15 @@ Structure
 └── seed.sql
 ```
 
-Data persistence
----
+## Data persistence
 
 Currently, the database is recreated and seeded on application startup.
 
-
-
-Setting up
----
+## Setting up
 
 Requires Python 3.9+, git and poetry.
 
-**Building**
+### Building
 
 ```
 $ git clone https://github.com/rbw/records.git
@@ -69,7 +60,7 @@ $ cd records
 $ poetry update
 ```
 
-**Starting Postgres**
+### Starting Postgres
 
 The application requires an SQLAlchemy-supported relational database. Currently, it uses pg.ARRAY in AlbumModel, making it compatible Postgres only.
 
@@ -79,36 +70,32 @@ A docker-compose file for running a Postgres server is available in the project 
 $ docker-compose up
 ```
 
-**Starting Records** 
+### Starting Records 
 
 ```
 $ poetry shell
 $ python -m records
 ```
 
-Usage
----
+## Usage
 
-**Get all albums**
+### Get all albums
 ```
 $ curl http://localhost:5000/albums
 ```
 
-**Create an album**
+### Create an album
 ```
-$ curl -X POST --data '{"title": "test", "release_date": "2035-01-20", "stores": 
-["APPLE", "YOUTUBE"], "tracks": ["TEST000000001", "TEST000000002"], "upc": "00000000000005"}' 
-http://localhost:5000/albums
+$ curl -X POST --data '{"title": "test", "release_date": "2035-01-20", "stores": ["APPLE", "YOUTUBE"], "tracks": ["TEST000000001", "TEST000000002"], "upc": "00000000000005"}' http://localhost:5000/albums
 ```
 
-**Show an album**
+### Show an album
 ```
 $ curl http://localhost:5000/albums/00000000000005
 ```
 
 
-Todo
----
+## Todo
 
 - Add Tracks API `[GET/POST/DELETE => /tracks,/tracks:trackid:]`
 - Implement add-track-to-album `[POST => /albums/:albumid:/tracks]`
@@ -117,3 +104,11 @@ Todo
 - Project docs
 - Code docs
 - Automated tests
+
+## Funding
+
+Consider [leaving a donation](https://paypal.vault13.org) if you like this software.
+
+## Author
+
+Robert Wikman \<rbw@vault13.org\>
