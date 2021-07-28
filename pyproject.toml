@@ -12,7 +12,6 @@ uvicorn = "^0.14.0"
 sqlalchemy = "^1.4.22"
 asyncpg = "^0.23"
 marshmallow = "^3.13.0"
-marshmallow-sqlalchemy = "^0.26.1"
 
 [tool.poetry.dev-dependencies]
 

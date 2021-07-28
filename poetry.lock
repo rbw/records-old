@@ -75,24 +75,6 @@ lint = ["mypy (==0.910)", "flake8 (==3.9.2)", "flake8-bugbear (==21.4.3)", "pre-
 tests = ["pytest", "pytz", "simplejson"]
 
 [[package]]
-name = "marshmallow-sqlalchemy"
-version = "0.26.1"
-description = "SQLAlchemy integration with the marshmallow (de)serialization library"
-category = "main"
-optional = false
-python-versions = ">=3.6"
-
-[package.dependencies]
-marshmallow = ">=3.0.0"
-SQLAlchemy = ">=1.2.0"
-
-[package.extras]
-dev = ["pytest", "pytest-lazy-fixture", "flake8 (==3.9.2)", "flake8-bugbear (==21.4.3)", "pre-commit (>=2.0,<3.0)", "tox"]
-docs = ["sphinx (==4.0.2)", "alabaster (==0.7.12)", "sphinx-issues (==1.2.0)"]
-lint = ["flake8 (==3.9.2)", "flake8-bugbear (==21.4.3)", "pre-commit (>=2.0,<3.0)"]
-tests = ["pytest", "pytest-lazy-fixture"]
-
-[[package]]
 name = "sqlalchemy"
 version = "1.4.22"
 description = "Database Abstraction Library"
@@ -153,7 +135,7 @@ standard = ["websockets (>=9.1)", "httptools (>=0.2.0,<0.3.0)", "watchgod (>=0.6
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "4f4936a69b648cb3eb1084019010fdadf0afcb526b701a181f25abb2cb23e17c"
+content-hash = "fc50e0b7ef856d2cc3086a0611f8c31fe85aee870ca41eda5ed3cef58c0676cd"
 
 [metadata.files]
 asgiref = [
@@ -243,10 +225,6 @@ h11 = [
 marshmallow = [
     {file = "marshmallow-3.13.0-py2.py3-none-any.whl", hash = "sha256:dd4724335d3c2b870b641ffe4a2f8728a1380cd2e7e2312756715ffeaa82b842"},
     {file = "marshmallow-3.13.0.tar.gz", hash = "sha256:c67929438fd73a2be92128caa0325b1b5ed8b626d91a094d2f7f2771bf1f1c0e"},
-]
-marshmallow-sqlalchemy = [
-    {file = "marshmallow-sqlalchemy-0.26.1.tar.gz", hash = "sha256:d8525f74de51554b5c8491effe036f60629a426229befa33ff614c8569a16a73"},
-    {file = "marshmallow_sqlalchemy-0.26.1-py2.py3-none-any.whl", hash = "sha256:ba7493eeb8669a3bf00d8f906b657feaa87a740ae9e4ecf829cfd6ddf763d276"},
 ]
 sqlalchemy = [
     {file = "SQLAlchemy-1.4.22-cp27-cp27m-macosx_10_14_x86_64.whl", hash = "sha256:488608953385d6c127d2dcbc4b11f8d7f2f30b89f6bd27c01b042253d985cc2f"},
