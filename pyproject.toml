@@ -8,6 +8,7 @@ authors = ["Robert Wikman <rbw@vault13.org>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 starlette = "^0.14.2"
+uvicorn = "^0.14.0"
 sqlalchemy = "^1.4.22"
 asyncpg = "^0.23"
 marshmallow = "^3.13.0"
