@@ -1,16 +1,27 @@
-from sqlalchemy import Column, Integer, String
+import enum
+
+from sqlalchemy import Column, Integer, String, Enum
 from sqlalchemy.orm import relationship
 
 from .base import Base
-from .track import TrackArtist
+from .track import TrackArtistModel
+
+
+class ArtistRole(enum.Enum):
+    SINGER = 1
+    DRUMMER = 2
+    BASSIST = 3
+
+    def __str__(self):
+        return self.name
 
 
 class ArtistModel(Base):
     __tablename__ = "artist"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    role = Column(String, nullable=False)
+    role = Column(Enum(ArtistRole))
     name = Column(String, nullable=False)
     albums = relationship(
-        "TrackModel", secondary=TrackArtist.__table__, back_populates="artists"
+        "TrackModel", secondary=TrackArtistModel.__table__, back_populates="artists"
     )
