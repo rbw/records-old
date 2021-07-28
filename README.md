@@ -1,11 +1,12 @@
 # Records
 
 An example application demonstrating how Starlette can be used with SQLAlchemy to
-provide a highly concurrent Web API backend.
+create a high-performance, highly concurrent Web API backend.
 
 **Tech used**
 - Python3
 - Starlette
+- Uvicorn
 - Sqlalchemy (1.4 asyncio)
 - Marshmallow
 
@@ -13,7 +14,7 @@ provide a highly concurrent Web API backend.
 Structure
 ---
 
-The structure should be suitable for larger projects and hopes to provide a good decomposition and a clear separation between data and presentation layers.
+The project structure and application architecture should be suitable for larger projects. It hopes to provide a good decomposition and clear separation between data and presentation layers.
 
 ```
 .
@@ -69,9 +70,9 @@ $ poetry update
 
 **Starting Postgres**
 
-The application requires an SQLAlchemy-supported relational database.
+The application requires an SQLAlchemy-supported relational database. Currently, it uses pg.ARRAY in AlbumModel, making it compatible Postgres only.
 
-A docker-compose file providing a Postgres server can be started from the project root:
+A docker-compose file for running a Postgres server is available in the project root.
 
 ```
 $ docker-compose up
@@ -99,8 +100,8 @@ $ curl http://localhost:5000/albums/00000000000002
 
 **Create an album**
 ```
-$ curl -X POST --data '{"title": "test", "release_date": "2035-01-20", "stores": ["apple", "youtube"], 
-"upc": "00000000000005"}' http://localhost:5000/albums
+$ curl -X POST --data '{"title": "test", "release_date": "2035-01-20", "stores": 
+["apple", "youtube"], "upc": "00000000000005"}' http://localhost:5000/albums
 ```
 
 
