@@ -13,8 +13,7 @@ provide a highly concurrent Web API backend.
 Structure
 ---
 
-The project has been given a structure suitable for larger project, that hopes
-to provide a clear separation between data and presentation layers.
+The structure should be suitable for larger projects and hopes to provide a good decomposition and a clear separation between data and presentation layers.
 
 ```
 .
@@ -51,7 +50,7 @@ to provide a clear separation between data and presentation layers.
 Data persistence
 ---
 
-Currently, the database is recreated and seeded on startup.
+Currently, the database is recreated and seeded on application startup.
 
 
 
@@ -100,9 +99,8 @@ $ curl http://localhost:5000/albums/00000000000002
 
 **Create an album**
 ```
-$ curl -X POST --data '{"title": "test", "release_date": "2035-01-20", 
-"stores": ["apple", "youtube"], "upc": "00000000000005"}' http://localhost:5000/albums
-
+$ curl -X POST --data '{"title": "test", "release_date": "2035-01-20", "stores": ["apple", "youtube"], 
+"upc": "00000000000005"}' http://localhost:5000/albums
 ```
 
 
