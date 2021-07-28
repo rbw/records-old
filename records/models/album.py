@@ -7,13 +7,16 @@ from sqlalchemy.orm import relationship
 from .base import Base
 
 
-class Store(enum.Enum):
-    spotify = 1
-    youtube = 2
-    apple = 3
+class AlbumStore(enum.Enum):
+    SPOTIFY = 1
+    YOUTUBE = 2
+    APPLE = 3
+
+    def __str__(self):
+        return self.name
 
 
-class AlbumTrack(Base):
+class AlbumTrackModel(Base):
     __tablename__ = "album_track"
 
     album = Column(String, ForeignKey("album.upc"), primary_key=True)
@@ -27,5 +30,8 @@ class AlbumModel(Base):
     title = Column(String, nullable=False)
     artwork_file = Column(String)
     release_date = Column(Date, nullable=False)
-    stores = Column(pg.ARRAY(Enum(Store, create_constraint=False, native_enum=False)))
-    tracks = relationship("TrackModel", secondary=AlbumTrack.__table__, lazy=False)
+    stores = Column(
+        pg.ARRAY(Enum(AlbumStore, create_constraint=False, native_enum=False))
+    )
+    # @TODO: Enable lazy loading of tracks
+    tracks = relationship("TrackModel", secondary=AlbumTrackModel.__table__, lazy=False)

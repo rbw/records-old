@@ -1,2 +1,2 @@
-from .album import AlbumSchema, AlbumsSchema
+from .album import AlbumBaseSchema, AlbumListSchema, AlbumNewSchema
 from .track import TrackSchema
