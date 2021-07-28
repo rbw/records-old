@@ -1,6 +1,6 @@
 import enum
 
-import sqlalchemy.dialects.postgresql as pg
+from sqlalchemy.dialects import postgresql as pg
 from sqlalchemy import Column, ForeignKey, String, Date, Enum
 from sqlalchemy.orm import relationship
 
