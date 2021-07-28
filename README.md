@@ -1,20 +1,21 @@
 # Records
 
-An example application demonstrating how Starlette can be used with SQLAlchemy to
-create a high-performance, highly concurrent Web API backend.
+Example REST API application created with extensibility and performance in mind.
 
-**Tech used**
+Tech used
+---
+
+Records uses a set of permissively licensed, standard, and stable libraries.
+
 - Python3
 - Starlette
 - Uvicorn
-- Sqlalchemy (1.4 asyncio)
+- SQLAlchemy (1.4 asyncio)
 - Marshmallow
 
 
 Structure
 ---
-
-The project structure and application architecture should be suitable for larger projects. It hopes to provide a good decomposition and clear separation between data and presentation layers.
 
 ```
 .
@@ -93,15 +94,16 @@ Usage
 $ curl http://localhost:5000/albums
 ```
 
-**Show an album**
-```
-$ curl http://localhost:5000/albums/00000000000002
-```
-
 **Create an album**
 ```
 $ curl -X POST --data '{"title": "test", "release_date": "2035-01-20", "stores": 
-["apple", "youtube"], "upc": "00000000000005"}' http://localhost:5000/albums
+["APPLE", "YOUTUBE"], "tracks": ["TEST000000001", "TEST000000002"], "upc": "00000000000005"}' 
+http://localhost:5000/albums
+```
+
+**Show an album**
+```
+$ curl http://localhost:5000/albums/00000000000005
 ```
 
 
