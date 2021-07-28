@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "records"
+version = "0.1.0"
+license = "MIT"
+description = "Album Management Service"
+authors = ["Robert Wikman <rbw@vault13.org>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+starlette = "^0.14.2"
+sqlalchemy = "^1.4.22"
+asyncpg = "^0.23"
+marshmallow = "^3.13.0"
+marshmallow-sqlalchemy = "^0.26.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
