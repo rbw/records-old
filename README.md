@@ -1,4 +1,4 @@
-# Records.
+# Records
 
 An example application demonstrating how Starlette can be used with SQLAlchemy to
 provide a highly concurrent Web API backend.
@@ -63,14 +63,16 @@ Requires Python 3.9+, git and poetry.
 **Building**
 
 ```
-$ git clone ...
+$ git clone https://github.com/rbw/records.git
 $ cd records
 $ poetry update
 ```
 
 **Starting Postgres**
 
-A vanilla Postgres compose configuration can be found in the project root:
+The application requires an SQLAlchemy-supported relational database.
+
+A docker-compose file providing a Postgres server can be started from the project root:
 
 ```
 $ docker-compose up
