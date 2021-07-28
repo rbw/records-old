@@ -1,7 +1,7 @@
 # Records
 
 An example application demonstrating how Starlette can be used with SQLAlchemy to
-create a high-performance, highly concurrent Web API backend using Python3 with asyncio.
+create a high-performance, highly concurrent Web API backend.
 
 **Tech used**
 - Python3
@@ -14,7 +14,7 @@ create a high-performance, highly concurrent Web API backend using Python3 with 
 Structure
 ---
 
-The project structure and application architecture should be suitable for larger projects and hopes to provide a good decomposition, and a clear separation between data and presentation layers.
+The project structure and application architecture should be suitable for larger projects. It hopes to provide a good decomposition and clear separation between data and presentation layers.
 
 ```
 .
