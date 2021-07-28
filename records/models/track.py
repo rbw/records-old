@@ -6,12 +6,15 @@ from sqlalchemy.orm import relationship
 from .base import Base
 
 
-class Version(enum.Enum):
-    radio = 1
-    original = 2
+class TrackVersion(enum.Enum):
+    RADIO = 1
+    ORIGINAL = 2
+
+    def __str__(self):
+        return self.name
 
 
-class TrackArtist(Base):
+class TrackArtistModel(Base):
     __tablename__ = "track_artist"
 
     artist = Column(Integer, ForeignKey("artist.id"), primary_key=True)
@@ -23,7 +26,9 @@ class TrackModel(Base):
 
     isrc = Column(String, primary_key=True)
     title = Column(String, nullable=False)
-    version = Column(Enum(Version, create_constraint=False, native_enum=False))
+    version = Column(Enum(TrackVersion))
     explicit = Column(Boolean, nullable=False)
     audio_file = Column(String, nullable=False)
-    artists = relationship("ArtistModel", secondary=TrackArtist.__table__, lazy=False)
+    artists = relationship(
+        "ArtistModel", secondary=TrackArtistModel.__table__, lazy=False
+    )
