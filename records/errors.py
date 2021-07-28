@@ -21,6 +21,12 @@ class Error:
     def __dict__(self):
         return dict(code=self.status, reason=self.reason, message=self.detail)
 
+    @property
+    def response(self):
+        return Response(
+            content=json.dumps(self.__dict__, indent=4), status_code=self.status
+        )
+
 
 async def request_error(_, exc):
     status = 500
@@ -36,8 +42,4 @@ async def request_error(_, exc):
             status = 400
             detail = str(detail)
 
-    error = Error(status, detail)
-
-    return Response(
-        content=json.dumps(error.__dict__, indent=4), status_code=error.status
-    )
+    return Error(status, detail).response
