@@ -13,7 +13,7 @@ It makes use of a set of well-established and permissively licensed libraries:
 
 ## Architecture
 
-The Records application uses a 3-tier architecture, illustrated below. 
+Uses a 3-tier architecture, illustrated below. 
 
 <img width="450" height="500" src="extras/layers.svg">
 
