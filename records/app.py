@@ -4,7 +4,7 @@ from starlette.applications import Starlette
 from starlette.middleware.cors import CORSMiddleware
 
 
-from records.api import routes
+from records.endpoints import routes
 from records.db import Database
 from records.exceptions import RequestError
 from records.errors import request_error
