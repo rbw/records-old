@@ -1,13 +1,14 @@
-from marshmallow import Schema
+from marshmallow import Schema, validate
 from marshmallow.fields import String, Boolean, List, Nested
 
+from records.models.track import TrackVersion
 from .artist import ArtistSchema
 
 
 class TrackSchema(Schema):
     isrc = String(required=True)
     title = String(required=True)
-    version = String()
+    version = String(validate=validate.OneOf([a.name for a in TrackVersion]))
     explicit = Boolean(required=True)
     audio_file = String(required=True)
     artists = List(Nested(ArtistSchema))
