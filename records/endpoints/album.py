@@ -1,22 +1,21 @@
-from sqlalchemy import select
-
-from records.models import AlbumModel
-from records.services import AlbumService, with_service
-
-
-@with_service(AlbumService)
-async def get_many(_, svc):
-    stmt = select(AlbumModel)
-    return await svc.get_many(stmt)
+from records.services import AlbumService
+from records.schemas import album_schemas
+from records.endpoint import BaseEndpoint
 
 
-@with_service(AlbumService)
-async def get_one(req, svc):
-    stmt = select(AlbumModel).where(AlbumModel.upc == req.path_params["album_upc"])
-    return await svc.get_one(stmt)
+class AlbumEndpoint(BaseEndpoint):
+    service_cls = AlbumService
 
+    async def get(self, req, svc):
+        if album_id := req.path_params.get("album_upc"):
+            item = await svc.get_one(album_id)
+            return self.json_response(item, 200, album_schemas.one)
 
-@with_service(AlbumService)
-async def create(req, svc):
-    album = await req.body()
-    return await svc.create(album), 201
+        items = await svc.get_many()
+        return self.json_response(items, 200, album_schemas.many)
+
+    async def post(self, req, svc):
+        body = await req.body()
+        album = self.deserialize(body, album_schemas.new)
+        await svc.create(album)
+        return self.json_response(None, 201)

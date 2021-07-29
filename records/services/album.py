@@ -1,4 +1,5 @@
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy import select
 
 from records.exceptions import DatabaseInsertError
 from records.schemas import album_schemas
@@ -9,8 +10,15 @@ from .base import BaseService
 class AlbumService(BaseService):
     schemas = album_schemas
 
-    async def create(self, obj):
-        body = self.deserialize(obj, self.schemas.new)
+    async def get_one(self, album_id):
+        stmt = select(AlbumModel).where(AlbumModel.upc == album_id)
+        return await self._get_one(stmt)
+
+    async def get_many(self):
+        stmt = select(AlbumModel)
+        return await self._get_many(stmt)
+
+    async def create(self, body):
         tracks = body.pop("tracks", [])
         album = AlbumModel(**body)
         async with self.db_session as s:
