@@ -2,7 +2,7 @@
 
 The idea of this project is to show how Starlette, Marshmallow, 
 and SQLAlchemy can be combined to create a RESTful HTTP API 
-application that is scalable, lightweight, and capable of dealing 
+application that is modular, lightweight, and capable of dealing 
 with many simultaneous requests.
 
 It makes use of a set of well-established and permissively licensed libraries:
@@ -11,44 +11,12 @@ It makes use of a set of well-established and permissively licensed libraries:
 - SQLAlchemy (1.4 asyncio)
 - Marshmallow
 
+## Architecture
 
-### Structure
+The Records application uses a 3-tier architecture, illustrated below. 
 
-```
-.
-├── docker-compose.yml [postgres compose]
-├── logging.conf [Python logging config]
-├── poetry.lock [Resolved dependencies]
-├── pyproject.toml [Project meta]
-├── README.md
-├── records
-│   ├── api
-│   │   ├── albums.py [Albums API endpoints]
-│   │   ├── __init__.py
-│   │   └── schemas [API-related schemas]
-│   │       ├── album.py
-│   │       ├── artist.py
-│   │       ├── __init__.py
-│   │       └── track.py
-│   ├── app.py
-│   ├── db.py [Database interface]
-│   ├── errors.py [API errors]
-│   ├── exceptions.py
-│   ├── __init__.py
-│   ├── __main__.py [App entry point]
-│   ├── models [ORM Models]
-│   │   ├── album.py
-│   │   ├── artist.py
-│   │   ├── base.py
-│   │   ├── __init__.py
-│   │   └── track.py
-│   └── utils.py
-└── seed.sql
-```
+<img width="450" height="500" src="extras/layers.svg">
 
-## Data persistence
-
-Currently, the database is recreated and seeded on application startup.
 
 ## Setting up
 
@@ -64,7 +32,7 @@ $ poetry update
 
 ### Starting Postgres
 
-The application requires an SQLAlchemy-supported relational database. Currently, it uses pg.ARRAY in AlbumModel, making it compatible with Postgres only.
+The application requires an SQLAlchemy-supported relational database. This example uses pg.ARRAY in AlbumModel, making it compatible with Postgres only.
 
 A docker-compose file for running a Postgres server is available in the project root.
 
