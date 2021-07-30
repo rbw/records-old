@@ -5,12 +5,6 @@ and SQLAlchemy can be combined to create a RESTful HTTP API
 application that is modular, lightweight, and capable of dealing 
 with many simultaneous requests.
 
-It makes use of a set of well-established and permissively licensed libraries:
-- Starlette
-- Uvicorn
-- SQLAlchemy (1.4 asyncio)
-- Marshmallow
-
 ## Architecture
 
 Uses a 3-tier architecture, illustrated below. 
@@ -68,7 +62,7 @@ $ curl http://localhost:5000/albums/00000000000005
 ## Todo
 
 - Add Tracks API `[GET/POST/DELETE => /tracks,/tracks:trackid:]`
-- Implement add-track-to-album `[POST => /albums/:albumid:/tracks]`
+- Implement add-tracks-to-album `[POST => /albums/:albumid:/tracks]`
 - Implement del-track-from-album `[DELETE => /albums/:albumid:/tracks/:trackid:]`
 - Implement query filtering
 - Add CLI
