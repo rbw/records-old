@@ -1,13 +1,21 @@
+from enum import Enum
 import logging.config
 
 from starlette.applications import Starlette
 from starlette.middleware.cors import CORSMiddleware
 
-
 from records.controllers import controllers_enabled
 from records.db import Database
 from records.exceptions import RequestError
 from records.errors import request_error
+
+
+class HttpMethod(Enum):
+    GET = "GET"
+    POST = "POST"
+    PUT = "PUT"
+    PATCH = "PATCH"
+    DELETE = "DELETE"
 
 
 class Application(Starlette):
@@ -29,8 +37,10 @@ class Application(Starlette):
         for ctrl_cls in controllers_enabled:
             ep = ctrl_cls(app=self)
             path_base, routes = ep.routes_make()
+
             # Load routes
             for path_rel, method, handler in routes:
+                method = HttpMethod(method.upper()).value
                 path = path_base + path_rel.rstrip("/")
                 self.log.info(f"Adding route: {method} {path} [{handler}]")
                 self.add_route(path, handler, [method])
