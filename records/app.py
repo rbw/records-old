@@ -21,7 +21,7 @@ class HttpMethod(Enum):
 class Application(Starlette):
     log = logging.getLogger("records")
 
-    def __init__(self, db_url, *args, debug=False, **kwargs):
+    def __init__(self, db_url, *args, debug=False, db_seed=None, **kwargs):
         logging.config.fileConfig(
             "logging.conf",
             defaults={"level": "DEBUG" if debug else "INFO"},
@@ -29,6 +29,9 @@ class Application(Starlette):
         )
 
         super(Application, self).__init__(*args, **kwargs)
+
+        # Set module to seed from
+        self.seed = db_seed
 
         # Initialize database
         self.db = Database(db_url, debug)
@@ -64,6 +67,9 @@ class Application(Starlette):
 
     async def on_app_start(self):
         await self.db.reset()
+
+        if self.seed:
+            await self.db.seed_load(self.seed)
 
     async def on_app_stop(self):
         pass

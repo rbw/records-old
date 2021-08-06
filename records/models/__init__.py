@@ -1,3 +1,3 @@
-from .album import AlbumModel, AlbumTrackModel
-from .track import TrackModel, TrackArtistModel
-from .artist import ArtistModel
+from .album import AlbumModel, AlbumTrackModel, AlbumStore
+from .track import TrackModel, TrackArtistModel, TrackVersion
+from .artist import ArtistModel, ArtistRole, ArtistRole
