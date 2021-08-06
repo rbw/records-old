@@ -3,7 +3,7 @@ from sqlalchemy import select
 
 from records.exceptions import DatabaseInsertError
 from records.models import AlbumModel, AlbumTrackModel
-from .base import BaseService
+from records.service import BaseService
 
 
 class AlbumService(BaseService):
