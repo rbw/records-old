@@ -1,4 +1,3 @@
-from .album import AlbumController
-from .track import TrackController
+from records.controllers.rest import AlbumController, TrackController
 
-controllers_enabled = [AlbumController, TrackController]
+controllers_rest = [AlbumController, TrackController]

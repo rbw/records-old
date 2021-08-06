@@ -4,7 +4,7 @@ import logging.config
 from starlette.applications import Starlette
 from starlette.middleware.cors import CORSMiddleware
 
-from records.controllers import controllers_enabled
+from records.controllers import controllers_rest
 from records.db import Database
 from records.exceptions import RequestError
 from records.errors import request_error
@@ -37,7 +37,7 @@ class Application(Starlette):
         self.db = Database(db_url, debug)
 
         # Init controllers
-        for ctrl_cls in controllers_enabled:
+        for ctrl_cls in controllers_rest:
             ep = ctrl_cls(app=self)
             path_base, routes = ep.routes_make()
 
