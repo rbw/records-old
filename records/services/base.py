@@ -5,17 +5,31 @@ from records.exceptions import (
 )
 
 
-class BaseService:
-    def __init__(self, app):
-        self.db = app.db
+class ServiceMeta(type):
+    _instances = {}
+
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(ServiceMeta, cls).__call__(*args, **kwargs)
+
+        return cls._instances[cls]
+
+
+class BaseService(metaclass=ServiceMeta):
+    app = None
+
+    def __init__(self):
         self.log = logging.getLogger(__name__)
+
+    def bind(self, app):
+        self.app = app
 
     @property
     def db_session(self):
-        if not self.db:
+        if not self.app.db:
             raise NoDatabaseAccess(f"No database attached to {self}")
 
-        return self.db.make_session()
+        return self.app.db.make_session()
 
     async def _get_one(self, stmt):
         async with self.db_session as s:
