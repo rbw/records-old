@@ -7,9 +7,9 @@ with many simultaneous requests.
 
 ## Architecture
 
-Uses a 3-tier architecture, illustrated below. 
+Uses a 3-layer architecture, illustrated below. 
 
-<img width="450" height="500" src="extras/layers.svg">
+<img width="450" height="420" src="extras/layers.svg">
 
 
 ## Setting up
