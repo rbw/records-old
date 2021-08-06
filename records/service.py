@@ -17,7 +17,7 @@ class ServiceMeta(ABCMeta):
         return cls._instances[cls]
 
 
-class BaseService(ABC, metaclass=ServiceMeta):
+class Service(ABC, metaclass=ServiceMeta):
     app = None
 
     def __init__(self):

@@ -3,10 +3,10 @@ from sqlalchemy import select
 
 from records.exceptions import DatabaseInsertError
 from records.models import TrackModel, TrackArtistModel
-from records.service import BaseService
+from records.service import Service
 
 
-class TrackService(BaseService):
+class TrackService(Service):
     async def get_one(self, track_id):
         stmt = select(TrackModel).where(TrackModel.isrc == track_id)
         return await self._get_one(stmt)

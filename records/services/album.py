@@ -3,10 +3,10 @@ from sqlalchemy import select
 
 from records.exceptions import DatabaseInsertError
 from records.models import AlbumModel, AlbumTrackModel
-from records.service import BaseService
+from records.service import Service
 
 
-class AlbumService(BaseService):
+class AlbumService(Service):
     async def get_one(self, album_id):
         stmt = select(AlbumModel).where(AlbumModel.upc == album_id)
         return await self._get_one(stmt)
