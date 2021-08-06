@@ -1,11 +1,9 @@
 from abc import abstractmethod
 from json.decoder import JSONDecodeError
-from typing import Type, Any
+from typing import Type, Any, Tuple
 
-from sqlalchemy.engine import ScalarResult
-from starlette.requests import Request
-from starlette.endpoints import HTTPEndpoint
 from starlette.responses import Response
+from sqlalchemy.engine import ScalarResult
 from marshmallow.schema import Schema, EXCLUDE
 from marshmallow.exceptions import ValidationError
 from records.exceptions import (
@@ -14,19 +12,20 @@ from records.exceptions import (
 )
 
 
-class BaseEndpoint(HTTPEndpoint):
+class Controller:
+    def __init__(self, app):
+        self.app = app
+        if self.svc:
+            self.svc.bind(app)
+
     @property
     @abstractmethod
-    def service_cls(self):
+    def svc(self):
         pass
 
-    async def dispatch(self) -> None:
-        request = Request(self.scope, receive=self.receive)
-        handler_name = "get" if request.method == "HEAD" else request.method.lower()
-        handler = getattr(self, handler_name, self.method_not_allowed)
-        service = self.service_cls(request.app)
-        response = await handler(request, service)
-        await response(self.scope, self.receive, self.send)
+    @abstractmethod
+    def routes_make(self) -> Tuple[str, list]:
+        return "", []
 
     @staticmethod
     def deserialize(data: Any, schema: Type[Schema]):
@@ -42,5 +41,11 @@ class BaseEndpoint(HTTPEndpoint):
         return schema(many=many).dumps(data, indent=4)
 
     def json_response(self, data, status, schema=None):
-        content = self.serialize(data, schema, many=isinstance(data, ScalarResult)) if schema else data
-        return Response(content, status_code=status, media_type="application/json")
+        content = (
+            self.serialize(data, schema, many=isinstance(data, ScalarResult))
+            if schema
+            else data
+        )
+        return Response(
+            content, status_code=status, media_type="application/json"
+        )

@@ -2,7 +2,7 @@ from marshmallow import Schema, validate
 from marshmallow.fields import String, Date, List, Nested
 
 from records.models.album import AlbumStore
-from .track import TrackSchema
+from .track import TrackBaseSchema
 
 
 class AlbumBaseSchema(Schema):
@@ -10,7 +10,7 @@ class AlbumBaseSchema(Schema):
     title = String(required=True)
     artwork_file = String()
     release_date = Date(required=True)
-    tracks = List(Nested(TrackSchema), dump_only=True)
+    tracks = List(Nested(TrackBaseSchema), dump_only=True)
     stores = List(String(validate=validate.OneOf([a.name for a in AlbumStore])))
 
 
