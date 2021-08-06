@@ -4,7 +4,7 @@ from sqlalchemy.dialects import postgresql as pg
 from sqlalchemy import Column, ForeignKey, String, Date, Enum
 from sqlalchemy.orm import relationship
 
-from .base import Base
+from records.model import BaseModel
 
 
 class AlbumStore(enum.Enum):
@@ -16,14 +16,14 @@ class AlbumStore(enum.Enum):
         return self.name
 
 
-class AlbumTrackModel(Base):
+class AlbumTrackModel(BaseModel):
     __tablename__ = "album_track"
 
     album = Column(String, ForeignKey("album.upc"), primary_key=True)
     track = Column(String, ForeignKey("track.isrc"), primary_key=True)
 
 
-class AlbumModel(Base):
+class AlbumModel(BaseModel):
     __tablename__ = "album"
 
     upc = Column(String, primary_key=True)

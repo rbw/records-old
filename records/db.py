@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import text
 
-from records.models.base import Base
+from records.model import BaseModel
 
 
 log = logging.getLogger(__name__)
@@ -30,8 +30,8 @@ class Database:
 
     async def reset(self):
         async with self.engine.begin() as conn:
-            await conn.run_sync(Base.metadata.drop_all)
-            await conn.run_sync(Base.metadata.create_all)
+            await conn.run_sync(BaseModel.metadata.drop_all)
+            await conn.run_sync(BaseModel.metadata.create_all)
 
             # @TODO: Load seed from JSON file and bulk-insert via ORM instead
             with open("seed.sql") as file:

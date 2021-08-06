@@ -3,7 +3,7 @@ import enum
 from sqlalchemy import Column, Integer, String, Enum
 from sqlalchemy.orm import relationship
 
-from .base import Base
+from records.model import BaseModel
 from .track import TrackArtistModel
 
 
@@ -16,7 +16,7 @@ class ArtistRole(enum.Enum):
         return self.name
 
 
-class ArtistModel(Base):
+class ArtistModel(BaseModel):
     __tablename__ = "artist"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
