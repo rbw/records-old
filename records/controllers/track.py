@@ -9,9 +9,9 @@ class TrackController(Controller):
 
     def routes_make(self):
         return "/tracks", [
-            ("/", ["GET"], self.get_many),
-            ("/", ["POST"], self.create),
-            ("/{track_id}", ["GET"], self.get_one),
+            ("/", "GET", self.get_many),
+            ("/", "POST", self.create),
+            ("/{track_id}", "GET", self.get_one),
         ]
 
     async def get_one(self, req):

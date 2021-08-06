@@ -9,11 +9,11 @@ class AlbumController(Controller):
 
     def routes_make(self):
         return "/albums", [
-            ("/", ["GET"], self.get_many),
-            ("/", ["POST"], self.create),
-            ("/{album_id}", ["GET"], self.get_one),
-            ("/{album_id}/tracks", ["POST"], None),
-            ("/{album_id}/tracks/{track_id}", ["DELETE"], None),
+            ("/", "GET", self.get_many),
+            ("/", "POST", self.create),
+            ("/{album_id}", "GET", self.get_one),
+            ("/{album_id}/tracks", "POST", None),
+            ("/{album_id}/tracks/{track_id}", "DELETE", None),
         ]
 
     async def get_one(self, req):

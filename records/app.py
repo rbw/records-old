@@ -30,9 +30,10 @@ class Application(Starlette):
             ep = ctrl_cls(app=self)
             path_base, routes = ep.routes_make()
             # Load routes
-            for path_rel, methods, handler in routes:
-                path_rel = path_rel.rstrip("/")
-                self.add_route(path_base + path_rel, handler, methods)
+            for path_rel, method, handler in routes:
+                path = path_base + path_rel.rstrip("/")
+                self.log.info(f"Adding route: {method} {path} [{handler}]")
+                self.add_route(path, handler, [method])
 
         # Set up CORS
         self.add_middleware(
