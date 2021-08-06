@@ -1,11 +1,13 @@
 import logging
+from abc import ABC, ABCMeta
+
 from records.exceptions import (
     NoSuchRecord,
     NoDatabaseAccess,
 )
 
 
-class ServiceMeta(type):
+class ServiceMeta(ABCMeta):
     _instances = {}
 
     def __call__(cls, *args, **kwargs):
@@ -15,7 +17,7 @@ class ServiceMeta(type):
         return cls._instances[cls]
 
 
-class BaseService(metaclass=ServiceMeta):
+class BaseService(ABC, metaclass=ServiceMeta):
     app = None
 
     def __init__(self):

@@ -1,4 +1,4 @@
-from abc import abstractmethod
+from abc import abstractmethod, ABC
 from json.decoder import JSONDecodeError
 from typing import Type, Any, Tuple
 
@@ -12,7 +12,7 @@ from records.exceptions import (
 )
 
 
-class Controller:
+class Controller(ABC):
     def __init__(self, app):
         self.app = app
         if self.svc:
