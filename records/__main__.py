@@ -18,7 +18,7 @@ def main():
     return app_make(
         db_url=f"postgresql+asyncpg://{pg_username}:{pg_password}@{pg_address}/{pg_database}",
         debug=log_debug,
-        db_seed=seed
+        db_seed=seed,
     )
 
 

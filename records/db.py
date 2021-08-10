@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker
 
-from records.model import Model
+from records.model import Base
 
 log = logging.getLogger(__name__)
 
@@ -38,5 +38,5 @@ class Database:
 
     async def reset(self):
         async with self.engine.begin() as conn:
-            await conn.run_sync(Model.metadata.drop_all)
-            await conn.run_sync(Model.metadata.create_all)
+            await conn.run_sync(Base.metadata.drop_all)
+            await conn.run_sync(Base.metadata.create_all)

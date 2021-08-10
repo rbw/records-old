@@ -1,2 +1,2 @@
-from .album import AlbumController
+from .album import AlbumController, AlbumTrackController
 from .track import TrackController

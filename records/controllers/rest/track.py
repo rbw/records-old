@@ -1,11 +1,11 @@
-from records.services import TrackService
+from records.models import TrackModel
 from records.controller import Controller
 
-from .schemas import track_schemas
+from .schemas import TrackPayload, Track, Tracks
 
 
 class TrackController(Controller):
-    svc = TrackService()
+    model = TrackModel()
 
     def routes_make(self):
         return "/tracks", [
@@ -16,15 +16,15 @@ class TrackController(Controller):
 
     async def get_one(self, req):
         track_id = req.path_params.get("track_isrc")
-        item = await self.svc.get_one(track_id)
-        return self.json_response(item, 200, track_schemas.one)
+        item = await self.model.get_one(track_id)
+        return self.json_response(item, 200, Track)
 
     async def get_many(self, _):
-        items = await self.svc.get_many()
-        return self.json_response(items, 200, track_schemas.many)
+        items = await self.model.get_many()
+        return self.json_response(items, 200, Tracks)
 
     async def create(self, req):
         body = await req.body()
-        track = self.deserialize(body, track_schemas.new)
-        await self.svc.create(track)
+        track = self.deserialize(body, TrackPayload)
+        await self.model.create(track)
         return self.json_response(None, 201)

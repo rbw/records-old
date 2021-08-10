@@ -1,3 +1,7 @@
-from records.controllers.rest import AlbumController, TrackController
+from records.controllers.rest import (
+    AlbumController,
+    TrackController,
+    AlbumTrackController,
+)
 
-controllers_rest = [AlbumController, TrackController]
+controllers_rest = [AlbumController, TrackController, AlbumTrackController]

@@ -1,13 +1,14 @@
 from enum import Enum
 import logging.config
 
+from sqlalchemy.exc import DatabaseError
 from starlette.applications import Starlette
 from starlette.middleware.cors import CORSMiddleware
 
 from records.controllers import controllers_rest
 from records.db import Database
 from records.exceptions import RequestError
-from records.errors import request_error
+from records.errors import on_error
 
 
 class HttpMethod(Enum):
@@ -62,8 +63,9 @@ class Application(Starlette):
         self.add_event_handler("shutdown", self.on_app_stop)
 
         # Error handlers
-        self.add_exception_handler(RequestError, request_error)
-        self.add_exception_handler(Exception, request_error)
+        self.add_exception_handler(RequestError, on_error)
+        self.add_exception_handler(DatabaseError, on_error)
+        self.add_exception_handler(Exception, on_error)
 
     async def on_app_start(self):
         await self.db.reset()

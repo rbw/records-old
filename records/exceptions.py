@@ -7,17 +7,15 @@ class BootstrappingError(Exception):
 
 class RequestError(Exception):
     detail = None
+    orig = None
 
-    def __init__(self, detail):
+    def __init__(self, detail, orig=None):
         self.detail = detail
+        self.orig = orig
 
 
 class NoSuchRecord(RequestError):
     """Requested record doesn't exist"""
-
-
-class DatabaseInsertError(RequestError):
-    """Error creating a new record in the database"""
 
 
 class PayloadDecodeError(RequestError):

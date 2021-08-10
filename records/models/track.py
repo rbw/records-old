@@ -1,34 +1,36 @@
-import enum
-
-from sqlalchemy import Column, ForeignKey, Integer, String, Boolean, Enum
-from sqlalchemy.orm import relationship
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy import select
 
 from records.model import Model
-
-
-class TrackVersion(enum.Enum):
-    RADIO = 1
-    ORIGINAL = 2
-
-    def __str__(self):
-        return self.name
-
-
-class TrackArtistModel(Model):
-    __tablename__ = "track_artist"
-
-    artist = Column(Integer, ForeignKey("artist.id"), primary_key=True)
-    track = Column(String, ForeignKey("track.isrc"), primary_key=True)
+from .schemas import TrackTable, TrackArtistTable
 
 
 class TrackModel(Model):
-    __tablename__ = "track"
+    async def get_one(self, track_id):
+        stmt = select(TrackTable).where(TrackTable.isrc == track_id)
+        return await self._get_one(stmt)
 
-    isrc = Column(String, primary_key=True)
-    title = Column(String, nullable=False)
-    version = Column(Enum(TrackVersion))
-    explicit = Column(Boolean, nullable=False)
-    audio_file = Column(String, nullable=False)
-    artists = relationship(
-        "ArtistModel", secondary=TrackArtistModel.__table__, lazy=False
-    )
+    async def get_many(self):
+        stmt = select(TrackTable)
+        return await self._get_many(stmt)
+
+    async def create(self, data):
+        tracks = data.pop("tracks", [])
+        track = TrackTable(**data)
+        async with self.db_session as s:
+            # Insert album
+            s.add(track)
+
+            # Associate with artists
+            [
+                s.add(TrackArtistTable(track=track_id, album=track.isrc))
+                for track_id in tracks
+            ]
+
+            try:
+                await s.commit()
+            except IntegrityError as e:
+                self.log.warning(f"Error creating new track: {e.orig}")
+                raise IntegrityError
+
+        return None
