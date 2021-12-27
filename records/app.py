@@ -1,4 +1,3 @@
-from enum import Enum
 import logging.config
 
 from sqlalchemy.exc import DatabaseError
@@ -8,14 +7,7 @@ from starlette.middleware.cors import CORSMiddleware
 from records.db import Database
 from records.exceptions import RequestError
 from records.errors import on_error
-
-
-class HttpMethod(Enum):
-    GET = "GET"
-    POST = "POST"
-    PUT = "PUT"
-    PATCH = "PATCH"
-    DELETE = "DELETE"
+from records.protocol import HttpMethod
 
 
 class Application(Starlette):
