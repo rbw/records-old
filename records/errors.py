@@ -2,12 +2,12 @@ import json
 from http import HTTPStatus
 
 from starlette.responses import Response
+from sqlalchemy.exc import DatabaseError
 from records.exceptions import (
     PayloadValidationError,
     NoSuchRecord,
     PayloadDecodeError,
     RequestError,
-    DatabaseInsertError,
 )
 
 
@@ -28,7 +28,7 @@ class Error:
         )
 
 
-async def request_error(_, exc):
+async def on_error(_, exc):
     status = 500
     detail = None
 
@@ -38,8 +38,11 @@ async def request_error(_, exc):
             status = 422
         elif isinstance(exc, NoSuchRecord):
             status = 404
-        elif isinstance(exc, (PayloadDecodeError, DatabaseInsertError)):
+        elif isinstance(exc, PayloadDecodeError):
             status = 400
             detail = str(detail)
+    elif isinstance(exc, DatabaseError):
+        status = 400
+        detail = f"Database operation failed with code {exc.code}"
 
     return Error(status, detail).response

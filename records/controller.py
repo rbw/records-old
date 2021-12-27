@@ -15,12 +15,12 @@ from records.exceptions import (
 class Controller(ABC):
     def __init__(self, app):
         self.app = app
-        if self.svc:
-            self.svc.bind(app)
+        if self.model:
+            self.model.bind(app)
 
     @property
     @abstractmethod
-    def svc(self):
+    def model(self):
         pass
 
     @abstractmethod
@@ -46,6 +46,4 @@ class Controller(ABC):
             if schema
             else data
         )
-        return Response(
-            content, status_code=status, media_type="application/json"
-        )
+        return Response(content, status_code=status, media_type="application/json")

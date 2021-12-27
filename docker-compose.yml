@@ -4,7 +4,7 @@ services:
   db:
     image: postgres
     volumes:
-      - ./data/models:/var/lib/postgresql/data
+      - ./schemas/models:/var/lib/postgresql/schemas
     environment:
       - POSTGRES_DB=records
       - POSTGRES_USER=records
