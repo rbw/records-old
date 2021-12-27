@@ -1,6 +1,7 @@
 <p align="center">
   <img width="128" height="128" src="extras/records.png">
   <br>
+  <b>Records</b><br>
 </p>
 
 The idea of this project is to show how Starlette, Marshmallow, 
