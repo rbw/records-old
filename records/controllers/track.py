@@ -1,7 +1,7 @@
 from records.models import TrackModel
 from records.controller import Controller
 
-from records.controllers.schemas import TrackPayload, Track, Tracks
+from .schemas import TrackPayload, Track, Tracks
 
 
 class TrackController(Controller):
