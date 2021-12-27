@@ -12,6 +12,8 @@ class AlbumController(Controller):
             ("/", "GET", self.albums_get),
             ("/", "POST", self.album_create),
             ("/{album_id}", "GET", self.album_get),
+            ("/{album_id}/tracks/{track_id}", "POST", self.track_add),
+            ("/{album_id}/tracks/{track_id}", "DELETE", self.track_remove),
         ]
 
     async def album_get(self, req):
@@ -29,16 +31,6 @@ class AlbumController(Controller):
         await self.model.album_create(album, tracks)
         return self.json_response(None, 201)
 
-
-class AlbumTrackController(Controller):
-    model = AlbumModel()
-
-    def routes_make(self):
-        return "/albums/{album_id}/tracks", [
-            ("/{track_id}", "POST", self.track_add),
-            ("/{track_id}", "DELETE", self.track_remove),
-        ]
-
     async def track_add(self, req):
         await self.model.track_add(
             album_id=req.path_params["album_id"], track_id=req.path_params["track_id"]
@@ -50,3 +42,5 @@ class AlbumTrackController(Controller):
             album_id=req.path_params["album_id"], track_id=req.path_params["track_id"]
         )
         return self.json_response(None, 204)
+
+

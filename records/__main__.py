@@ -2,7 +2,7 @@ import uvicorn
 from os import environ as env
 
 from extras import seed
-from .controllers import AlbumController, TrackController, AlbumTrackController
+from .controllers import AlbumController, TrackController
 from .app import Application
 
 # Set up config from environment
@@ -19,7 +19,7 @@ def main():
     return Application(
         db_url=f"postgresql+asyncpg://{pg_username}:{pg_password}@{pg_address}/{pg_database}",
         debug=log_debug,
-        controllers=[AlbumController, TrackController, AlbumTrackController],
+        controllers=[AlbumController, TrackController],
         db_seed=seed,
     )
 
