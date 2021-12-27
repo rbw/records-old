@@ -15,7 +15,7 @@ class TrackController(Controller):
         ]
 
     async def get_one(self, req):
-        track_id = req.path_params.get("track_isrc")
+        track_id = req.path_params.get("track_id")
         item = await self.model.get_one(track_id)
         return self.json_response(item, 200, Track)
 
@@ -28,3 +28,4 @@ class TrackController(Controller):
         track = self.deserialize(body, TrackPayload)
         await self.model.create(track)
         return self.json_response(None, 201)
+
