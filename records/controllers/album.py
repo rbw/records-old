@@ -1,7 +1,7 @@
 from records.models import AlbumModel
 from records.controller import Controller
 
-from .schemas import Album, Albums, AlbumPayload
+from records.controllers.schemas import Album, Albums, AlbumPayload
 
 
 class AlbumController(Controller):
