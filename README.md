@@ -1,7 +1,8 @@
-<div style="text-align:center">
-  <img alt="" width="128" height="128" src="extras/records.png">
-  <span style="font-weight:bold;display:block;">records</span>
-</div>
+<p align="center">
+  <img width="128" height="128" src="extras/records.png">
+  <br>
+  <b>Records</b><br>
+</p>
 
 The idea of this project is to show how Starlette, Marshmallow, 
 and SQLAlchemy can be combined to create a RESTful HTTP API 
