@@ -2,7 +2,8 @@ import uvicorn
 from os import environ as env
 
 from extras import seed
-from . import app_make
+from .controllers import AlbumController, TrackController
+from .app import Application
 
 # Set up config from environment
 listen_host, listen_port = env.get("RCRD_LISTEN", "127.0.0.1:5000").split(":")
@@ -15,9 +16,10 @@ log_debug = env.get("RCRD_LOG_DEBUG", "1") == "1"
 
 
 def main():
-    return app_make(
+    return Application(
         db_url=f"postgresql+asyncpg://{pg_username}:{pg_password}@{pg_address}/{pg_database}",
         debug=log_debug,
+        controllers=[AlbumController, TrackController],
         db_seed=seed,
     )
 
