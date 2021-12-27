@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="128" height="128" src="extras/records.png">
+  <img width="256" height="256" src="extras/records.png">
   <br>
   <b>Records</b><br>
 </p>
@@ -58,9 +58,9 @@ $ curl http://localhost:5000/albums/00000000000005
 
 ## Todo
 
-- Add Tracks API `[GET/POST/DELETE => /tracks,/tracks:trackid:]`
-- Implement add-tracks-to-album `[POST => /albums/:albumid:/tracks]`
-- Implement del-track-from-album `[DELETE => /albums/:albumid:/tracks/:trackid:]`
+- <s>Add Tracks API `[GET/POST/DELETE => /tracks,/tracks:trackid:]`</s>
+- <s>Implement add-tracks-to-album `[POST => /albums/:albumid:/tracks]`</s>
+- <s>Implement del-track-from-album `[DELETE => /albums/:albumid:/tracks/:trackid:]`</s>
 - Implement query filtering
 - Add CLI
 - Project docs
