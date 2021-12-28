@@ -1,6 +1,3 @@
-import json
-
-
 class BootstrappingError(Exception):
     """Application initialization errors"""
 
