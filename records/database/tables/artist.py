@@ -3,8 +3,8 @@ import enum
 from sqlalchemy import Column, Integer, String, Enum
 from sqlalchemy.orm import relationship
 
-from records.model import Base
-from .track import TrackArtistTable
+from records.database.table import BaseModel
+from .track import TrackArtistModel
 
 
 class ArtistRole(enum.Enum):
@@ -16,12 +16,12 @@ class ArtistRole(enum.Enum):
         return self.name
 
 
-class ArtistTable(Base):
+class ArtistModel(BaseModel):
     __tablename__ = "artist"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     role = Column(Enum(ArtistRole))
     name = Column(String, nullable=False)
     albums = relationship(
-        "TrackTable", secondary=TrackArtistTable.__table__, back_populates="artists"
+        "TrackModel", secondary=TrackArtistModel.__table__, back_populates="artists"
     )

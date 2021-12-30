@@ -4,7 +4,7 @@ from sqlalchemy.dialects import postgresql as pg
 from sqlalchemy import Column, ForeignKey, String, Date, Enum
 from sqlalchemy.orm import relationship
 
-from records.model import Base
+from records.database.table import BaseModel
 
 
 class AlbumStore(enum.Enum):
@@ -16,14 +16,14 @@ class AlbumStore(enum.Enum):
         return self.name
 
 
-class AlbumTrackTable(Base):
+class AlbumTrackModel(BaseModel):
     __tablename__ = "album_track"
 
     album = Column(String, ForeignKey("album.upc"), primary_key=True)
     track = Column(String, ForeignKey("track.isrc"), primary_key=True)
 
 
-class AlbumTable(Base):
+class AlbumModel(BaseModel):
     __tablename__ = "album"
 
     upc = Column(String, primary_key=True)
@@ -35,5 +35,5 @@ class AlbumTable(Base):
     )
     # @TODO: Enable lazy loading of tracks
     tracks = relationship(
-        "TrackTable", secondary=AlbumTrackTable.__table__, lazy=False
+        "TrackModel", secondary=AlbumTrackModel.__table__, lazy=False
     )

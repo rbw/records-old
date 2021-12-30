@@ -13,15 +13,10 @@ from records.exceptions import (
 
 
 class Controller(ABC):
-    def __init__(self, app):
-        self.app = app
-        if self.model:
-            self.model.bind(app)
-
-    @property
-    @abstractmethod
-    def model(self):
-        pass
+    @classmethod
+    def init(cls, app):
+        cls.app = app
+        return cls()
 
     @abstractmethod
     def routes_make(self) -> Tuple[str, list]:

@@ -1,23 +1,23 @@
 from datetime import date
 
-from records.models.schemas import (
-    TrackTable,
+from records.database.tables import (
+    TrackModel,
     TrackVersion,
     ArtistRole,
-    ArtistTable,
-    AlbumTable,
+    ArtistModel,
+    AlbumModel,
     AlbumStore,
 )
 
 artists = [
-    ArtistTable(id=1, name="Singer Sam", role=ArtistRole.SINGER),
-    ArtistTable(id=2, name="Bassist Bob", role=ArtistRole.BASSIST),
-    ArtistTable(id=3, name="Drummer Don", role=ArtistRole.DRUMMER),
-    ArtistTable(id=4, name="Singer Simpson", role=ArtistRole.SINGER),
+    ArtistModel(id=1, name="Singer Sam", role=ArtistRole.SINGER),
+    ArtistModel(id=2, name="Bassist Bob", role=ArtistRole.BASSIST),
+    ArtistModel(id=3, name="Drummer Don", role=ArtistRole.DRUMMER),
+    ArtistModel(id=4, name="Singer Simpson", role=ArtistRole.SINGER),
 ]
 
 tracks = [
-    TrackTable(
+    TrackModel(
         isrc="TEST000000001",
         title="Test Track #1",
         version=TrackVersion.RADIO,
@@ -25,7 +25,7 @@ tracks = [
         audio_file="track1.mp3",
         artists=artists[1:3],
     ),
-    TrackTable(
+    TrackModel(
         isrc="TEST000000002",
         title="Test Track #2",
         version=TrackVersion.ORIGINAL,
@@ -33,7 +33,7 @@ tracks = [
         audio_file="track2.mp3",
         artists=[artists[0], artists[3]],
     ),
-    TrackTable(
+    TrackModel(
         isrc="TEST000000003",
         title="Test Track #3",
         version=TrackVersion.ORIGINAL,
@@ -44,7 +44,7 @@ tracks = [
 ]
 
 albums = [
-    AlbumTable(
+    AlbumModel(
         upc="00000000000001",
         title="Test Album #1",
         artwork_file="album1.jpg",
@@ -52,7 +52,7 @@ albums = [
         stores=[AlbumStore.APPLE, AlbumStore.SPOTIFY, AlbumStore.YOUTUBE],
         tracks=tracks[0:2],
     ),
-    AlbumTable(
+    AlbumModel(
         upc="00000000000002",
         title="Test Album #2",
         artwork_file="album2.jpg",
@@ -60,7 +60,7 @@ albums = [
         stores=[AlbumStore.APPLE, AlbumStore.YOUTUBE],
         tracks=tracks[2:3],
     ),
-    AlbumTable(
+    AlbumModel(
         upc="00000000000003",
         title="Test Album #3",
         artwork_file="album3.jpg",

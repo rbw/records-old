@@ -1,7 +1,7 @@
 from marshmallow import Schema, validate
 from marshmallow.fields import String, Date, List, Nested
 
-from records.models.schemas import AlbumStore
+from records.database.tables import AlbumStore
 from .track import Track
 
 

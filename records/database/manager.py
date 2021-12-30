@@ -4,12 +4,19 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker
 
-from records.model import Base
-
 log = logging.getLogger(__name__)
 
 
-class Database:
+class DatabaseManagerSingleton(type):
+    _instances = {}
+
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(DatabaseManagerSingleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
+
+
+class DatabaseManager(metaclass=DatabaseManagerSingleton):
     def __init__(self, url, debug):
         # Create engine with logging of sql statements
         self.engine = create_async_engine(url)
@@ -36,7 +43,3 @@ class Database:
             s.add_all(objects)
             await s.commit()
 
-    async def reset(self):
-        async with self.engine.begin() as conn:
-            await conn.run_sync(Base.metadata.drop_all)
-            await conn.run_sync(Base.metadata.create_all)

@@ -1,7 +1,7 @@
 from marshmallow import Schema, validate
 from marshmallow.fields import String, Boolean, List, Nested
 
-from records.models.schemas import TrackVersion
+from records.database.tables import TrackVersion
 from .artist import ArtistSchema
 
 

@@ -4,10 +4,11 @@ from sqlalchemy.exc import DatabaseError
 from starlette.applications import Starlette
 from starlette.middleware.cors import CORSMiddleware
 
-from records.db import Database
+from records.database import DatabaseManager
 from records.exceptions import RequestError
 from records.errors import on_error
 from records.protocol import HttpMethod
+from records.database import db_reset
 
 
 class Application(Starlette):
@@ -30,7 +31,7 @@ class Application(Starlette):
         self.seed = db_seed
 
         # Initialize database
-        self.db = Database(db_url, debug)
+        self.db = DatabaseManager(db_url, debug)
 
         # Set up CORS
         self.add_middleware(
@@ -51,7 +52,7 @@ class Application(Starlette):
         self.add_exception_handler(Exception, on_error)
 
     def _controller_register(self, ctrl_cls):
-        ctrl = ctrl_cls(app=self)
+        ctrl = ctrl_cls.init(app=self)
         path_base, routes = ctrl.routes_make()
 
         # Load routes
@@ -62,7 +63,8 @@ class Application(Starlette):
             self.add_route(path, handler, [method])
 
     async def on_app_start(self):
-        await self.db.reset()
+        # @TODO Move to cli
+        await db_reset(self.db)
 
         if self.seed:
             await self.db.seed_load(self.seed)

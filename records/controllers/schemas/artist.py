@@ -1,7 +1,7 @@
 from marshmallow import Schema, validate
 from marshmallow.fields import Integer, String
 
-from records.models.schemas import ArtistRole
+from records.database.tables import ArtistRole
 
 
 class ArtistSchema(Schema):

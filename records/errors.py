@@ -8,6 +8,7 @@ from records.exceptions import (
     NoSuchRecord,
     PayloadDecodeError,
     RequestError,
+    IneffectiveDelete,
 )
 
 
@@ -39,6 +40,9 @@ async def on_error(_, exc):
         elif isinstance(exc, NoSuchRecord):
             status = 404
         elif isinstance(exc, PayloadDecodeError):
+            status = 400
+            detail = str(detail)
+        elif isinstance(exc, IneffectiveDelete):
             status = 400
             detail = str(detail)
     elif isinstance(exc, DatabaseError):

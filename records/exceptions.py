@@ -2,7 +2,11 @@ class BootstrappingError(Exception):
     """Application initialization errors"""
 
 
-class RequestError(Exception):
+class ServiceUninitialized(RuntimeError):
+    pass
+
+
+class RequestError(RuntimeError):
     detail = None
     orig = None
 
@@ -13,6 +17,10 @@ class RequestError(Exception):
 
 class NoSuchRecord(RequestError):
     """Requested record doesn't exist"""
+
+
+class IneffectiveDelete(RequestError):
+    """Raised when a delete operation didn't delete anything"""
 
 
 class PayloadDecodeError(RequestError):
