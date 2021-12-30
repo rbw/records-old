@@ -2,7 +2,7 @@
 name = "records"
 version = "0.1.0"
 license = "MIT"
-description = "Album Management Service"
+description = "Records boilerplate"
 authors = ["Robert Wikman <rbw@vault13.org>"]
 
 [tool.poetry.dependencies]
